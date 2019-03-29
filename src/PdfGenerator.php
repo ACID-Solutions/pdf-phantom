@@ -69,6 +69,10 @@ class PdfGenerator
      */
     protected $footerHeight = '1cm';
     /**
+     * @var string
+     */
+    protected $format = 'A4';
+    /**
      * @var int
      */
     protected $dpi = 72;
@@ -162,6 +166,7 @@ class PdfGenerator
             $this->orientation,
             $this->headerHeight,
             $this->footerHeight,
+            $this->format,
             $this->dpi,
             $this->waitTime,
         ];
@@ -390,6 +395,20 @@ class PdfGenerator
     public function setFooterHeight($footerHeight)
     {
         $this->footerHeight = $footerHeight;
+
+        return $this;
+    }
+
+    /**
+     * Set the format of the page.
+     *
+     * @param $format
+     *
+     * @return $this
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
 
         return $this;
     }

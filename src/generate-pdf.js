@@ -14,10 +14,11 @@ var fs = require('fs'),
 // args[5] => Orientation
 // args[6] => Header height
 // args[7] => Footer height
-// args[8] => DPI
-// args[9] => Time to wait for generation in milliseconds (allow time for fade ins before taking snapshot)
+// args[8] => Page format
+// args[9] => DPI
+// args[10] => Time to wait for generation in milliseconds (allow time for fade ins before taking snapshot)
 
-var dpi  = args[8],
+var dpi  = args[9],
     dpcm = dpi / 2.54;
 
 var widthCm, heightCm;
@@ -35,12 +36,8 @@ page.viewportSize = {
     height : Math.round(heightCm * dpcm)
 };
 
-page.paperSize = {
-    // format: 'A4',
-    width: page.viewportSize.width + 'px',
-    height: page.viewportSize.height + 'px',
-    orientation: args[5],
-    margin: '1cm',
+var paperSize = {
+    margin: '0.3cm',
     header: {
         height: args[6],
         contents: phantom.callback(function (pageNum, numPages) {
@@ -76,7 +73,16 @@ page.paperSize = {
     }
 };
 
-page.settings.dpi = dpi;
+if (args[8]) {
+    paperSize.format = args[8];
+    paperSize.orientation = args[5];
+} else {
+    paperSize.width = page.viewportSize.width + 'px';
+    paperSize.height = page.viewportSize.height + 'px';
+    page.settings.dpi = dpi;
+}
+
+page.paperSize = paperSize;
 page.zoomFactor = 1.0;
 
 function onPageReady(status) {
@@ -102,7 +108,7 @@ page.open(args[2], function (status) {
                 } else {
                     checkReadyState();
                 }
-            }, args[9]);
+            }, args[10]);
         });
     }
 
