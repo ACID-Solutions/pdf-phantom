@@ -407,4 +407,25 @@ class PdfGenerator
 
         return $this;
     }
+
+    /**
+     * Merge multiple pdf documents together
+     *
+     * @param string $output The file to write the result to
+     * @param array  $files  List of files to merge.
+     *
+     * @throws \Exception
+     */
+    public function merge($output, $files = [])
+    {
+        foreach ($files as $pdf) {
+            $fileParts = pathinfo($pdf);
+            if (strtolower($fileParts['extension']) !== 'pdf') {
+                throw new \Exception('Tous les documents doivent être dans le format PDF');
+            }
+        }
+        $pdfs = implode(' ', $files);
+        $command = 'pdfunite ' . $pdfs . ' ' . $output;
+        shell_exec($command);
+    }
 }
