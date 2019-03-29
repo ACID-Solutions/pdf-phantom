@@ -22,6 +22,7 @@ class PdfPhantomServiceProvider extends ServiceProvider
             $generator->setBinaryPath($app['config']['pdf_phantom.binary_path']);
             $generator->setStoragePath($app['config']['pdf_phantom.temporary_file_path']);
             $generator->setTimeout($app['config']['pdf_phantom.timeout']);
+	    $generator->useScript($app['config']['pdf_phantom.generation_script']);
 
             foreach ($app['config']['pdf_phantom.command_line_options'] as $option) {
                 $generator->addCommandLineOption($option);
