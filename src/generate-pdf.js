@@ -18,24 +18,6 @@ var fs = require('fs'),
 // args[9] => DPI
 // args[10] => Time to wait for generation in milliseconds (allow time for fade ins before taking snapshot)
 
-var dpi  = args[9],
-    dpcm = dpi / 2.54;
-
-var widthCm, heightCm;
-
-if (args[5] == 'portrait') {
-    widthCm  = 21.0;
-    heightCm = 29.7; // A4 portrait
-} else {
-    widthCm  = 29.7;
-    heightCm = 21.0; // A4 landscape
-}
-
-page.viewportSize = {
-    width  : Math.round(widthCm * dpcm),
-    height : Math.round(heightCm * dpcm)
-};
-
 var paperSize = {
     margin: '0.3cm',
     header: {
@@ -77,6 +59,24 @@ if (args[8]) {
     paperSize.format = args[8];
     paperSize.orientation = args[5];
 } else {
+    var dpi  = args[9],
+        dpcm = dpi / 2.54;
+
+    var widthCm, heightCm;
+
+    if (args[5] == 'portrait') {
+        widthCm  = 21.0;
+        heightCm = 29.7; // A4 portrait
+    } else {
+        widthCm  = 29.7;
+        heightCm = 21.0; // A4 landscape
+    }
+
+    page.viewportSize = {
+        width  : Math.round(widthCm * dpcm),
+        height : Math.round(heightCm * dpcm)
+    };
+
     paperSize.width = page.viewportSize.width + 'px';
     paperSize.height = page.viewportSize.height + 'px';
     page.settings.dpi = dpi;
