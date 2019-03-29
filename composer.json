@@ -1,0 +1,33 @@
+{
+    "name": "acid-solutions/pdf-phantom",
+    "description": "Generate PDF documents from html and js using PhantomJS",
+    "authors": [
+        {
+            "name": "Daniel Lucas",
+            "email": "daniel@acid.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "~5.0",
+        "symfony/process": "^2.8|^3.0|^4.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "AcidSolutions\\PdfPhantom\\PdfPhantomServiceProvider"
+            ],
+            "aliases": {
+                "PdfPhantom": "AcidSolutions\\PdfPhantom\\PdfPhantomFacade"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AcidSolutions\\PdfPhantom\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    }
+}
