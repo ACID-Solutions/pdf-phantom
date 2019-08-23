@@ -5,6 +5,10 @@
         {
             "name": "Daniel Lucas",
             "email": "daniel@acid.fr"
+        },
+        {
+            "name": "Quentin CATHERINE",
+            "email": "quentin@acid.fr"
         }
     ],
     "minimum-stability": "dev",

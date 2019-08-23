@@ -87,6 +87,10 @@ class PdfGenerator
     /**
      * @var string
      */
+    protected $prefix;
+    /**
+     * @var string
+     */
     protected $uniqid;
 
     /**
@@ -117,8 +121,12 @@ class PdfGenerator
 
         $path = $this->storagePath . DIRECTORY_SEPARATOR;
 
+        if (! isset($this->prefix) || is_null($this->prefix)) {
+            $this->prefix = '';
+        }
+
         if (! isset($this->uniqid) || is_null($this->uniqid)) {
-            $this->uniqid = uniqid('', true);
+            $this->uniqid = uniqid($this->prefix, true);
         }
 
         $this->headerPath = $path . 'header-' . $this->uniqid . '.html';
@@ -423,6 +431,20 @@ class PdfGenerator
     public function setDpi($dpi)
     {
         $this->dpi = $dpi;
+
+        return $this;
+    }
+
+    /**
+     * Set the uniqid prefix.
+     *
+     * @param $prefix
+     *
+     * @return $this
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
 
         return $this;
     }
